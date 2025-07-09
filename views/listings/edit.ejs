@@ -1,36 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luxlet</title>
-  </head>
-  <body>
-    <h3>Edit your Listing</h3>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
-      <input name="listing[title]" value="<%= listing.title %>" type="text" />
-      <br /><br />
-      <textarea name="listing[description]">
-<%= listing.description %></textarea
-      >
-      <br /><br />
-      <input name="listing[image]" value="<%= listing.image %>" type="text" />
-      <br /><br />
-      <input name="listing[price]" value="<%= listing.price %>" type="number" />
-      <br /><br />
-      <input
-        name="listing[country]"
-        value="<%= listing.country %>"
-        type="text"
-      />
-      <br /><br />
+<% layout('/layouts/boilerplate.ejs') %>
+<div class="row">
+  <div class="col-8 offset-2">
+    <br />
+    <h3>Create a New Listing</h3>
+    <form
+      method="POST"
+      action="/listings"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+      autocomplete="off"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          id="title"
+          name="listing[title]"
+          type="text"
+          class="form-control"
+          required
+          minlength="5"
+          maxlength="100"
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a title (5-100 characters).</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          name="listing[description]"
+          class="form-control"
+          required
+          minlength="20"
+          maxlength="1000"
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a description (20-1000 characters).</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload Image</label>
+        <input
+          id="image"
+          name="listing[image]"
+          type="file"
+          class="form-control"
+          accept="image/*"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please choose an image file.</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label for="price" class="form-label mb-0">Price</label>
+          <input
+            name="listing[price]"
+            type="number"
+            class="form-control mb-3 mb-md-0"
+            min="500"
+            required
+          />
+          <div class="invalid-feedback">Please enter a price ≥ 500.</div>
+        </div>
+        <div class="col-md-8">
+          <label for="country" class="form-label mb-0">Country</label>
+          <input
+            name="listing[country]"
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please provide a country.</div>
+        </div>
+      </div>
+
+      <br />
+      <label for="location" class="form-label mb-0">Location</label>
       <input
         name="listing[location]"
-        value="<%= listing.location %>"
         type="text"
+        class="form-control"
+        required
       />
-      <br /><br />
-      <button>Edit</button>
+      <div class="invalid-feedback">Please provide a location.</div>
+
+      <br />
+      <label for="category" class="form-label">Category</label>
+      <select
+        name="listing[category]"
+        id="category"
+        required
+        class="form-control"
+      >
+        <option value="" disabled selected hidden>Select Category</option>
+        <option value="Mountain">Mountain</option>
+        <option value="Beach">Beach</option>
+        <option value="Rooms">Rooms</option>
+        <option value="Camping">Camping</option>
+        <option value="Farms">Farms</option>
+        <option value="Arctic">Arctic</option>
+        <option value="Iconic Cities">Cities</option>
+        <option value="Play">Play</option>
+        <option value="Boat">Boat</option>
+      </select>
+      <div class="invalid-feedback">Please select a category.</div>
+
+      <br />
+      <button
+        class="btn btn-primary"
+        style="width: 7rem; background-color: #ee3844; border: none"
+      >
+        Create
+      </button>
     </form>
-  </body>
-</html>
+  </div>
+</div>

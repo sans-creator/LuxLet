@@ -1,24 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LuxLet</title>
-  </head>
-  <body>
-    <h3>Listing Details :</h3>
-    <ul>
-      <li><%= listing.title %></li>
-      <li><%= listing.description %></li>
-      <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li>
-      <li><%= listing.location %></li>
-      <li><%= listing.country %></li>
-    </ul>
+<% layout('layouts/boilerplate') %>
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
     <br />
-    <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
+    <h3><%= listing.title %></h3>
+    <div class="card col-md-9 col-sm-9 mb-2 listing-card">
+      <img
+        src="<%=listing.image.url%>"
+        class="card-img-top show_img"
+        alt="listing_img"
+      />
+      <div class="card-body">
+        <p class="card-text" style="font-size: large">
+          <b><%= listing.title %></b><br /><br />
+          <%= listing.description %>
+        </p>
+        <p class="card-text" style="font-size: large">
+          &nbsp;<b style="font-size: 20px"
+            >&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>
+          </b>
+          <span style="margin-left: 6px; color: rgb(83, 82, 82)">
+            per night</span
+          >
+        </p>
+        <p class="card-text" style="font-size: large">
+          <i class="bi bi-geo-alt"></i> &nbsp;<i><%= listing.location %></i>
+        </p>
+        <p class="card-text" style="font-size: large">
+          <i class="bi bi-globe-central-south-asia-fill"></i> &nbsp;<i
+            ><%= listing.country %></i
+          >
+        </p>
+      </div>
+    </div>
+    <a
+      href="/listings/<%= listing._id %>/edit"
+      class="btn btn-primary"
+      style="width: 6rem; background-color: #ee3844; border: none"
+      >Edit</a
+    >
     <br /><br />
     <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-      <button>Delete this listing</button>
+      <button class="btn btn-dark" style="width: 6rem">Delete</button>
     </form>
-  </body>
-</html>
+  </div>
+</div>
